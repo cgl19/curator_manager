@@ -1,13 +1,10 @@
 import PropTypes from 'prop-types';
-
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-
+import Button from '@mui/material/Button';
 import { fCurrency } from 'src/utils/format-number';
-
 import Label from 'src/components/label';
 import { ColorPreview } from 'src/components/color-utils';
 
@@ -33,7 +30,6 @@ export default function ShopProductCard({ product }) {
   const renderImg = (
     <Box
       component="img"
-      alt={product.name}
       src={product.cover}
       sx={{
         top: 0,
@@ -45,39 +41,49 @@ export default function ShopProductCard({ product }) {
     />
   );
 
-  const renderPrice = (
-    <Typography variant="subtitle1">
-      <Typography
-        component="span"
-        variant="body1"
-        sx={{
-          color: 'text.disabled',
-          textDecoration: 'line-through',
-        }}
-      >
-        {product.priceSale && fCurrency(product.priceSale)}
-      </Typography>
-      &nbsp;
-      {fCurrency(product.price)}
-    </Typography>
+  const renderActions = (
+    <Stack
+      direction="row"
+      spacing={2}
+      sx={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        opacity: 0,
+        transition: 'opacity 0.3s ease-in-out',
+      }}
+      className="action-buttons"
+    >
+      <Button variant="contained" size="small" color="info">
+        View
+      </Button>
+      <Button variant="contained" size="small" color="primary">
+        Post
+      </Button>
+    </Stack>
   );
 
   return (
-    <Card>
+    <Card
+      sx={{
+        position: 'relative',
+        '&:hover .action-buttons': {
+          opacity: 1,
+        },
+      }}
+    >
       <Box sx={{ pt: '100%', position: 'relative' }}>
-        {product.status && renderStatus}
-
         {renderImg}
+        {renderActions}
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
         <Link color="inherit" underline="hover" variant="subtitle2" noWrap>
-          {product.name}
+          {/* {product.name} */}
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <ColorPreview colors={product.colors} />
-          {renderPrice}
         </Stack>
       </Stack>
     </Card>

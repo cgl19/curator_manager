@@ -8,10 +8,10 @@ export default function AppPage() {
   return (
     <>
       <Helmet>
-        <title> Dashboard | Minimal UI </title>
+        <title> Dashboard | Curator365 | Manager Ui </title>
       </Helmet>
 
       <AppView />
     </>
   );
-}
+}  
